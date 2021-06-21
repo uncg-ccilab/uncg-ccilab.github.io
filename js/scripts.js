@@ -1,231 +1,73 @@
-$(document).ready(function () {
+$(function () {
 
-    // trigger modal for switching the stylesheet
-    $('.modal-trigger').leanModal();
+    // init feather icons
+    feather.replace();
 
+    // init tooltip & popovers
+    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
 
-    // sidebar toggling responsive
-    $('.sidebar-toggle').click(function () {
-        $('.sidebar').toggleClass('open');
+    //page scroll
+    $('a.page-scroll').bind('click', function (event) {
+        var $anchor = $(this);
+        $('html, body').stop().animate({
+            scrollTop: $($anchor.attr('href')).offset().top - 20
+        }, 1000);
+        event.preventDefault();
     });
 
-    // Back to top link
-    $('.backtotop').click(function () {
-        $('body,html').animate({
-            scrollTop: 0
-        }, 500);
+    // slick slider
+    $('.slick-about').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        dots: true,
+        arrows: false
+    });
+
+    //toggle scroll menu
+    var scrollTop = 0;
+    $(window).scroll(function () {
+        var scroll = $(window).scrollTop();
+        //adjust menu background
+        if (scroll > 80) {
+            if (scroll > scrollTop) {
+                $('.smart-scroll').addClass('scrolling').removeClass('up');
+            } else {
+                $('.smart-scroll').addClass('up');
+            }
+        } else {
+            // remove if scroll = scrollTop
+            $('.smart-scroll').removeClass('scrolling').removeClass('up');
+        }
+
+        scrollTop = scroll;
+
+        // adjust scroll to top
+        if (scroll >= 600) {
+            $('.scroll-top').addClass('active');
+        } else {
+            $('.scroll-top').removeClass('active');
+        }
         return false;
     });
 
-    // Responsive Menu
-    $(".toggle-link").click(function () {
-        $("#menu").toggleClass("active");
+    // scroll top top
+    $('.scroll-top').click(function () {
+        $('html, body').stop().animate({
+            scrollTop: 0
+        }, 1000);
     });
 
-    // Search
-    $('a[href="#search"]').click(function () {
-        $('#search').addClass('open');
-        $('#search input').focus();
-        $('body').addClass('overflow');
+    /**Theme switcher - DEMO PURPOSE ONLY */
+    $('.switcher-trigger').click(function () {
+        $('.switcher-wrap').toggleClass('active');
     });
-
-    $('#search, #search button.close').on('click keyup', function (event) {
-        if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
-            $(this).removeClass('open');
-            $('body').removeClass('overflow');
-        }
-    });
-    
-    var cookieLayout = getCookie("switch-style");
-    if (cookieLayout != "") {
-        $("#switch-style").attr("href", "/css/" + cookieLayout + ".css");
-    }
-
-    // Style Switch index layout
-    $(".switch div").click(function () {
-        var id = $(this).attr("id");
-
-        // adjust link here
-        $("#switch-style").attr("href", "/css/" + id + ".css");
-        setCookie("switch-style", id, 365);
-    });
-
-    var cookieColor = getCookie("color-change");
-    if (cookieColor != "") {
-        $("#color-change").attr("href", "/css/main_" + cookieColor + ".css");
-    }
-
-    // Style Switch color scheme
-    $(".color-change img").click(function () {
-        var id = $(this).attr("id");
-
-        // adjust link here
-        $("#color-change").attr("href", "/css/main_" + id + ".css");
-        setCookie("color-change", id, 365);
-    });
-
-    if ($('.articles').find('div.wrapper').length != 0) {
-        $('.switch').hide();
-    } else {
-        $('.switch').show();
-    }
-});
-
-$(window).scroll(function () {
-    // scroll stuff
-});
-
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
-}
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return "";
-}
-
-function checkCookie(cname) {
-    var cookie = getCookie(cname);
-    if (cookie != "") {
-        alert("cookie is" + cookie);
-    } else {
-        alert("cookie unset");
-    }
-}
-
-// lightbox stuff
-$(function () {
-    var activityIndicatorOn = function () {
-            $('<div id="imagelightbox-loading"><div></div></div>').appendTo('body');
-        },
-        activityIndicatorOff = function () {
-            $('#imagelightbox-loading').remove();
-        },
-
-        // OVERLAY
-        overlayOn = function () {
-            $('<div id="imagelightbox-overlay"></div>').appendTo('body');
-        },
-        overlayOff = function () {
-            $('#imagelightbox-overlay').remove();
-        },
-
-        // CLOSE BUTTON
-        closeButtonOn = function (instance) {
-            $('<button type="button" id="imagelightbox-close" title="Close"><i class="fa fa-times-circle"></i></button>').appendTo('body').on('click touchend', function () {
-                $(this).remove();
-                instance.quitImageLightbox();
-                return false;
-            });
-        },
-        closeButtonOff = function () {
-            $('#imagelightbox-close').remove();
-        },
-
-        // CAPTION
-        captionOn = function () {
-            var description = $('a[href="' + $('#imagelightbox').attr('src') + '"] img').attr('alt');
-            if (description.length > 0)
-                $('<div id="imagelightbox-caption">' + description + '</div>').appendTo('body');
-        },
-        captionOff = function () {
-            $('#imagelightbox-caption').remove();
-        },
-
-        // NAVIGATION
-        navigationOn = function (instance, selector) {
-            var images = $(selector);
-            if (images.length) {
-                var nav = $('<div id="imagelightbox-nav"></div>');
-                for (var i = 0; i < images.length; i++)
-                    nav.append('<button type="button"></button>');
-                nav.appendTo('body');
-                nav.on('click touchend', function () {
-                    return false;
-                });
-                var navItems = nav.find('button');
-                navItems.on('click touchend', function () {
-                        var $this = $(this);
-                        if (images.eq($this.index()).attr('href') != $('#imagelightbox').attr('src'))
-                            instance.switchImageLightbox($this.index());
-                        navItems.removeClass('active');
-                        navItems.eq($this.index()).addClass('active');
-                        return false;
-                    })
-                    .on('touchend', function () {
-                        return false;
-                    });
-            }
-        },
-        navigationUpdate = function (selector) {
-            var items = $('#imagelightbox-nav button');
-            items.removeClass('active');
-            items.eq($(selector).filter('[href="' + $('#imagelightbox').attr('src') + '"]').index(selector)).addClass('active');
-        },
-        navigationOff = function () {
-            $('#imagelightbox-nav').remove();
-        },
-
-        // ARROWS
-        arrowsOn = function (instance, selector) {
-            var $arrows = $('<button type="button" class="imagelightbox-arrow imagelightbox-arrow-left"></button><button type="button" class="imagelightbox-arrow imagelightbox-arrow-right"></button>');
-            $arrows.appendTo('body');
-            $arrows.on('click touchend', function (e) {
-                e.preventDefault();
-                var $this = $(this),
-                    $target = $(selector + '[href="' + $('#imagelightbox').attr('src') + '"]'),
-                    index = $target.index(selector);
-
-                if ($this.hasClass('imagelightbox-arrow-left')) {
-                    index = index - 1;
-                    if (!$(selector).eq(index).length)
-                        index = $(selector).length;
-                } else {
-                    index = index + 1;
-                    if (!$(selector).eq(index).length)
-                        index = 0;
-                }
-                instance.switchImageLightbox(index);
-                return false;
-            });
-        },
-        arrowsOff = function () {
-            $('.imagelightbox-arrow').remove();
-        };
-
-    //	ALL COMBINED
-    var selectorF = 'a[data-imagelightbox="f"]';
-    var instanceF = $(selectorF).imageLightbox({
-        onStart: function () {
-            overlayOn();
-            closeButtonOn(instanceF);
-            arrowsOn(instanceF, selectorF);
-        },
-        onEnd: function () {
-            overlayOff();
-            captionOff();
-            closeButtonOff();
-            arrowsOff();
-            activityIndicatorOff();
-        },
-        onLoadStart: function () {
-            captionOff();
-            activityIndicatorOn();
-        },
-        onLoadEnd: function () {
-            captionOn();
-            activityIndicatorOff();
-            $('.imagelightbox-arrow').css('display', 'block');
-        }
+    $('.color-switcher ul li').click(function () {
+        var color = $(this).attr('data-color');
+        $('#theme-color').attr("href", "css/" + color + ".css");
+        $('.color-switcher ul li').removeClass('active');
+        $(this).addClass('active');
     });
 });
-
