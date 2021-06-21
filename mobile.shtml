@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>UNCG Mobile Wrapper</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="plugins/css/bootstrap-accessibility.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/m-wrapper.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+  </head>
+
+  <body>
+    <!--#include virtual="heading.shtml" -->
+
+    <!-- Begin page content -->
+    <div class="container">
+      <div class="main-content">    
+      <article>  
+        <h1>Home Page</h1>
+        <img src="images/lorem-ipsum.jpg" class="img-responsive img-featured img-featured-right" alt="Lorem Ipsum 1">
+        <p>Lorem ipsum dolor sit amet, stet volumus partiendo at vel. Ea eam numquam lobortis efficiendi. Vim ei meis appellantur, ei modus probatus sea, euripidis rationibus cum ut. Per dolor consetetur ex, an modo invenire per.</p>
+        <p>Te duo dicat adipiscing, ne deleniti volutpat eum. Insolens principes sea eu. Modo sonet appareat mei te, cu mei percipit convenire vulputate. Ad mei cibo habemus.</p>
+        <p>Sea ei aeterno perfecto, usu ex graeci essent molestie. Usu te latine deseruisse. Pro cu utinam neglegentur, laboramus mnesarchum voluptatibus pri eu. Et vivendum mandamus vel, mazim libris ancillae ut his.</p>
+        <img src="images/lorem-ipsum.jpg" class="img-responsive img-featured img-featured-left" alt="Lorem Ipsum 2">
+        <p>An maiestatis necessitatibus nec. Vel labores facilis ei, inani periculis per ut. Cu sed nihil affert vulputate, ne est verear vocibus omnesque, alia melius intellegat ad sea. Iriure definiebas no vim, tamquam commune pri cu, pro cibo affert fuisset ad. Quidam patrioque et sit, debet percipitur per cu. At unum option conceptam ius. Eos quot virtute te, idque erant necessitatibus cu vix.</p>
+        <p>Sea tritani urbanitas te. Quod regione has ex. Ex mei commodo quaeque appetere. Cu eam similique omittantur comprehensam, sit eleifend consetetur eu. Utamur euripidis splendide et eum, ei scripta detraxit comprehensam has, an adhuc erant soleat sea. </p>
+        <div style="clear:both;"></div>
+      </article>
+      </div>
+    </div>
+
+    <footer>
+    <!--#include virtual="address.html" -->      
+    <!--#include virtual="footer.html" -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="plugins/js/bootstrap-accessibility.js"></script> 
+    <script src="js/uncg-mobile.js"></script>
+  </body>
+</html>
