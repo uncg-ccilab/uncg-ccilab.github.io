@@ -1,8 +1,8 @@
 full_rebuild: true
-name: Gridster
-description: the material experience for jekyll
+name: UNCG CCI Lab
+description: UNCG Cloud Cyberinfrastructure Innovation Lab
 destination: jekyllbuild
-url: #place url
+url: http://uncg-ccilab.github.io
 baseurl: #place folder name if site is served in subfolder
 permalink: /:title/
 paginate: 8
